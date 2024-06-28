@@ -1,0 +1,44 @@
+{
+  "name": "xerots",
+  "version": "0.0.1",
+  "description": "Brain of the xerots Framework",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">= 20.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "fmt": "prettier --config .prettierrc 'src/**/*.ts' 'tests/**/*.ts' --write"
+  },
+  "keywords": [
+    "typescript",
+    "express",
+    "api",
+    "framework"
+  ],
+  "author": "Arafat Islam",
+  "license": "ISC",
+  "repository": "git@github.com:xerots/core.git",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.14.9",
+    "jest": "^29.7.0",
+    "prettier": "^3.3.2",
+    "typescript": "^5.5.2"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "winston": "^3.13.0"
+  }
+}
