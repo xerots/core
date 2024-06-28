@@ -1,0 +1,32 @@
+name: Publish package to NPM
+on:
+  release:
+    types: [published]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      # Setup .npmrc file to publish to NPM
+      - uses: pnpm/action-setup@v4
+        name: Install PNPM
+        with:
+          version: latest
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build
+        run: pnpm build
+      - name: Publish package
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
