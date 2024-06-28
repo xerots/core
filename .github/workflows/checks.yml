@@ -1,0 +1,53 @@
+name: Checks
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+jobs:
+  lint_build_test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 20, 21, 22 ]
+    name: Run on Node ${{ matrix.node }}
+
+    steps:
+      - name: Checkout the commit
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: latest
+          run_install: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run lint
+        id: lint
+        run: |
+          pnpm lint
+
+      - name: Run build
+        id: build
+        if: steps.lint.outcome == 'success'
+        run: |
+          pnpm build
+
+      - name: Run Test
+        id: test
+        if: steps.build.outcome == 'success'
+        run: |
+          pnpm test
