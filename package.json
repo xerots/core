@@ -1,20 +1,22 @@
 {
   "name": "xerots",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Brain of the xerots Framework",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "engines": {
-    "node": ">= 20.0.0"
+    "node": ">= 18.0.0"
   },
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "lint": "eslint --ext .ts src/ tests/",
+    "lint": "eslint --ext .ts src/ --parser-options=project:'tsconfig.json'",
+    "lint:tests": "eslint --ext .ts tests/ --parser-options=project:'tests/tsconfig.json'",
     "fmt": "prettier --config .prettierrc 'src/**/*.ts' 'tests/**/*.ts' --write"
   },
   "keywords": [
